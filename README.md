@@ -43,19 +43,27 @@ git clone [https://github.com/seu-usuario/gotapp-server.git](https://github.com/
 ```
  * Crie um ambiente virtual e ative-o:
 <!-- end list -->
+```bash
 python -m venv venv
+```
 # No Windows:
+```bash
 venv\Scripts\activate
+```
 # No Linux/Mac:
+``` bash
 source venv/bin/activate
-
+```
  * Instale as dependências:
 <!-- end list -->
+``` bash
 pip install -r requirements.txt
-
+```
  * Inicie o servidor:
 <!-- end list -->
+``` bash
 uvicorn main:app --reload
+```
 
 🚧 Status do Projeto
 Atualmente o Gotapp Server encontra-se em versão Beta. Novas funcionalidades de segurança e otimização de banco de dados estão sendo implementadas.
