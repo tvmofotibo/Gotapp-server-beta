@@ -1,0 +1,360 @@
+INFO:     Started server process [6134]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     170.78.156.249:0 - "GET / HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     170.78.156.249:0 - "GET / HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/me HTTP/1.1" 401 Unauthorized
+INFO:     170.78.156.249:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     170.78.156.249:0 - "POST /users/register HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "POST /users/register HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "POST /users/login HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "WebSocket /ws/2?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwiZXhwIjoxNzcyNDA1MzQxfQ.ysChs7inOXWy2u_hwCK0ftW6IYy7TUrUsZuEa8QyRYo" [accepted]
+INFO:main:Usuário 2 (Alvino Santos) conectado via WebSocket
+INFO:     connection open
+INFO:     170.78.156.249:0 - "GET /users/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2/posts HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "POST /users/me/avatar HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /uploads/avatar_2_e89a6e9f7bcd440b93395ede124b7f19.jpg HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "PUT /users/me HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2/posts HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/search?q=H HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/search?q=A HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/search?q=Al HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/search?q=A HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/search?q=A HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2/posts HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2/followers HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2/posts HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     170.78.156.249:0 - "GET / HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "POST /users/login HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "WebSocket /ws/1?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzcyNDA1NDIxfQ.GWp0wbb2GAUAimwMJIcptOlvwAH-CC40ryZYt2URu-w" [accepted]
+INFO:main:Usuário 1 (Demo User) conectado via WebSocket
+INFO:     connection open
+INFO:     170.78.156.249:0 - "GET /users/search?q=De HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/search?q=D HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/1 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /follow/status/1 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/1/posts HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /follow/status/1 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "POST /follow/1 HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/site-packages/uvicorn/protocols/http/h11_impl.py", line 410, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/fastapi/applications.py", line 1134, in __call__
+    await super().__call__(scope, receive, send)
+  File "/usr/lib/python3.12/site-packages/starlette/applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/usr/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/usr/lib/python3.12/site-packages/starlette/middleware/cors.py", line 95, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/usr/lib/python3.12/site-packages/starlette/middleware/cors.py", line 153, in simple_response
+    await self.app(scope, receive, send)
+  File "/usr/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/usr/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/usr/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/usr/lib/python3.12/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/lib/python3.12/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/usr/lib/python3.12/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/usr/lib/python3.12/site-packages/fastapi/routing.py", line 119, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/usr/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/usr/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/lib/python3.12/site-packages/fastapi/routing.py", line 105, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/fastapi/routing.py", line 424, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/fastapi/routing.py", line 314, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/starlette/concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/anyio/to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2502, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 986, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Gotapp-server-beta/main.py", line 604, in follow_user
+    asyncio.create_task(manager.send_personal_message({
+  File "/usr/lib/python3.12/asyncio/tasks.py", line 417, in create_task
+    loop = events.get_running_loop()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: no running event loop
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /uploads/avatar_2_e89a6e9f7bcd440b93395ede124b7f19.jpg HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET / HTTP/1.1" 200 OK
+INFO:main:Usuário 1 desconectado
+INFO:     connection closed
+INFO:     170.78.156.249:0 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "WebSocket /ws/1?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzcyNDA1NDIxfQ.GWp0wbb2GAUAimwMJIcptOlvwAH-CC40ryZYt2URu-w" [accepted]
+INFO:main:Usuário 1 (Demo User) conectado via WebSocket
+INFO:     connection open
+INFO:     170.78.156.249:0 - "GET /messages/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "POST /follow/2 HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/site-packages/uvicorn/protocols/http/h11_impl.py", line 410, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/fastapi/applications.py", line 1134, in __call__
+    await super().__call__(scope, receive, send)
+  File "/usr/lib/python3.12/site-packages/starlette/applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/usr/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/usr/lib/python3.12/site-packages/starlette/middleware/cors.py", line 95, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/usr/lib/python3.12/site-packages/starlette/middleware/cors.py", line 153, in simple_response
+    await self.app(scope, receive, send)
+  File "/usr/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/usr/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/usr/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/usr/lib/python3.12/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/lib/python3.12/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/usr/lib/python3.12/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/usr/lib/python3.12/site-packages/fastapi/routing.py", line 119, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/usr/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/usr/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/lib/python3.12/site-packages/fastapi/routing.py", line 105, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/fastapi/routing.py", line 424, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/fastapi/routing.py", line 314, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/starlette/concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/anyio/to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2502, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 986, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Gotapp-server-beta/main.py", line 604, in follow_user
+    asyncio.create_task(manager.send_personal_message({
+  File "/usr/lib/python3.12/asyncio/tasks.py", line 417, in create_task
+    loop = events.get_running_loop()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: no running event loop
+/usr/lib/python3.12/site-packages/sqlalchemy/orm/loading.py:812: RuntimeWarning: coroutine 'ConnectionManager.send_personal_message' was never awaited
+  def _instance_processor(
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+INFO:     170.78.156.249:0 - "GET /messages/1 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET / HTTP/1.1" 200 OK
+INFO:main:Usuário 1 desconectado
+INFO:     connection closed
+INFO:     170.78.156.249:0 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /uploads/avatar_2_e89a6e9f7bcd440b93395ede124b7f19.jpg HTTP/1.1" 304 Not Modified
+INFO:     170.78.156.249:0 - "POST /users/login HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "WebSocket /ws/1?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzcyNDA1NDIxfQ.GWp0wbb2GAUAimwMJIcptOlvwAH-CC40ryZYt2URu-w" [accepted]
+INFO:main:Usuário 1 (Demo User) conectado via WebSocket
+INFO:     connection open
+INFO:     170.78.156.249:0 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "WebSocket /ws/1?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzcyNDA1NDg2fQ.GZ6bOZN7LUV-5kqzi07QCmelFhbhfQ6gRetA2jqHiF0" [accepted]
+INFO:main:Usuário 1 (Demo User) conectado via WebSocket
+INFO:     connection open
+INFO:     170.78.156.249:0 - "GET /messages/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET / HTTP/1.1" 200 OK
+INFO:main:Usuário 2 desconectado
+INFO:     connection closed
+INFO:     170.78.156.249:0 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /messages/1 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "WebSocket /ws/2?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwiZXhwIjoxNzcyNDA1MzQxfQ.ysChs7inOXWy2u_hwCK0ftW6IYy7TUrUsZuEa8QyRYo" [accepted]
+INFO:main:Usuário 2 (Alvino Santos) conectado via WebSocket
+INFO:     connection open
+INFO:     170.78.156.249:0 - "GET /users/1 HTTP/1.1" 200 OK
+INFO:main:Usuário 1 desconectado
+INFO:     connection closed
+INFO:     connection closed
+INFO:     170.78.156.249:0 - "GET /users/1 HTTP/1.1" 200 OK
+INFO:main:Usuário 2 desconectado
+INFO:     connection closed
+INFO:     170.78.156.249:0 - "GET /users/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "WebSocket /ws/2?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwiZXhwIjoxNzcyNDA1MzQxfQ.ysChs7inOXWy2u_hwCK0ftW6IYy7TUrUsZuEa8QyRYo" [accepted]
+INFO:main:Usuário 2 (Alvino Santos) conectado via WebSocket
+INFO:     connection open
+INFO:     170.78.156.249:0 - "GET /users/2/posts HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /uploads/avatar_2_e89a6e9f7bcd440b93395ede124b7f19.jpg HTTP/1.1" 304 Not Modified
+INFO:     170.78.156.249:0 - "GET /users/2/followers HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2/followers HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2/following HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /messages/1 HTTP/1.1" 200 OK
+INFO:main:Mensagem enviada para usuário 2
+INFO:main:Mensagem enviada para usuário 2
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /messages/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "WebSocket /ws/1?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzcyNDA1NDg2fQ.GZ6bOZN7LUV-5kqzi07QCmelFhbhfQ6gRetA2jqHiF0" [accepted]
+INFO:main:Usuário 1 (Demo User) conectado via WebSocket
+INFO:     connection open
+INFO:     170.78.156.249:0 - "GET / HTTP/1.1" 200 OK
+INFO:main:Mensagem enviada para usuário 1
+INFO:main:Mensagem enviada para usuário 1
+INFO:main:Mensagem enviada para usuário 1
+INFO:main:Mensagem enviada para usuário 1
+INFO:main:Mensagem enviada para usuário 1
+INFO:main:Mensagem enviada para usuário 1
+INFO:main:Mensagem enviada para usuário 1
+INFO:main:Mensagem enviada para usuário 1
+INFO:main:Mensagem enviada para usuário 1
+INFO:main:Mensagem enviada para usuário 1
+INFO:main:Mensagem enviada para usuário 1
+INFO:main:Usuário 1 desconectado
+INFO:main:Mensagem enviada para usuário 2
+INFO:     170.78.156.249:0 - "WebSocket /ws/1?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzcyNDA1NDg2fQ.GZ6bOZN7LUV-5kqzi07QCmelFhbhfQ6gRetA2jqHiF0" [accepted]
+INFO:main:Usuário 1 (Demo User) conectado via WebSocket
+INFO:main:Usuário 1 desconectado
+INFO:     connection closed
+INFO:     connection closed
+INFO:     170.78.156.249:0 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /uploads/avatar_2_e89a6e9f7bcd440b93395ede124b7f19.jpg HTTP/1.1" 304 Not Modified
+INFO:     170.78.156.249:0 - "WebSocket /ws/1?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzcyNDA1NDg2fQ.GZ6bOZN7LUV-5kqzi07QCmelFhbhfQ6gRetA2jqHiF0" [accepted]
+INFO:main:Usuário 1 (Demo User) conectado via WebSocket
+INFO:     connection open
+INFO:main:Mensagem enviada para usuário 1
+INFO:main:Mensagem enviada para usuário 1
+INFO:main:Mensagem enviada para usuário 1
+INFO:main:Mensagem enviada para usuário 1
+INFO:main:Mensagem enviada para usuário 1
+INFO:main:Mensagem enviada para usuário 1
+INFO:main:Mensagem enviada para usuário 1
+INFO:main:Mensagem enviada para usuário 1
+INFO:main:Mensagem enviada para usuário 1
+INFO:main:Mensagem enviada para usuário 1
+INFO:main:Mensagem enviada para usuário 1
+INFO:main:Usuário 1 desconectado
+INFO:     connection closed
+INFO:main:Mensagem enviada para usuário 2
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2/posts HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2/posts HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2/posts HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2/posts HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2/posts HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2/posts HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2/posts HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2/posts HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2/posts HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2/posts HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2/posts HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /messages/1 HTTP/1.1" 200 OK
+INFO:main:Mensagem enviada para usuário 2
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2/posts HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2/posts HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2/posts HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2/posts HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /messages/1 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/1 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2/posts HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2/posts HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2 HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /users/2/posts HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:     170.78.156.249:0 - "GET /conversations/ HTTP/1.1" 200 OK
+INFO:main:Usuário 2 desconectado
+INFO:     connection closed
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [6134]
+sys:1: RuntimeWarning: coroutine 'ConnectionManager.send_personal_message' was never awaited
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback

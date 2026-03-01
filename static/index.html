@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover">
-    <title>got app · Direct</title>
+    <title>got app · Social</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
@@ -11,7 +11,6 @@
     <style>
         /* ========== VARIÁVEIS CSS ========== */
         :root {
-            /* Tema escuro (padrão) - roxo/preto */
             --bg-primary: #000000;
             --bg-elevated: #0a0a0a;
             --bg-card: rgba(18, 18, 18, 0.9);
@@ -26,37 +25,20 @@
             --nav-bg: rgba(0, 0, 0, 0.8);
             --input-bg: rgba(26, 26, 26, 0.9);
             --message-other-bg: rgba(30, 30, 30, 0.95);
-            
-            /* Breakpoints */
-            --breakpoint-xs: 413px;
-            --breakpoint-sm: 414px;
-            --breakpoint-sm-max: 735px;
-            --breakpoint-md: 736px;
-            --breakpoint-md-max: 875px;
-            --breakpoint-lg: 876px;
-            
-            /* Alturas */
             --nav-bar-height: 60px;
             --bottom-nav-height: 60px;
-            
-            /* Espaçamentos */
-            --spacing-unit: 4px;
-            --card-padding: 28px;
-            
-            /* Bordas */
             --border-radius-card: 32px;
             --border-radius-button: 60px;
             --border-radius-message: 28px;
         }
 
-        /* Tema claro (inspirado no Instagram - preto e branco) */
         .theme-light {
             --bg-primary: #ffffff;
             --bg-elevated: #fafafa;
             --bg-card: rgba(255, 255, 255, 0.9);
             --text-primary: #262626;
             --text-secondary: #8e8e8e;
-            --accent: #262626; /* preto */
+            --accent: #262626;
             --accent-light: #000000;
             --accent-gradient: linear-gradient(145deg, #262626, #000000);
             --border-color: #dbdbdb;
@@ -67,504 +49,153 @@
             --message-other-bg: rgba(239, 239, 239, 0.95);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; display: flex; justify-content: center; align-items: center; transition: background-color 0.3s ease, color 0.2s ease; }
+        .screen { width: 100%; max-width: 400px; height: 100vh; background-color: var(--bg-primary); overflow: hidden; }
+        .hidden { display: none !important; }
+        #login-screen, #signup-screen, #recovery-screen { display: flex; justify-content: center; align-items: center; background: var(--bg-primary); }
+        .card { background: var(--bg-card); backdrop-filter: blur(15px); border-radius: var(--border-radius-card); padding: 36px 28px; display: flex; flex-direction: column; gap: 20px; border: 1px solid var(--border-accent); box-shadow: 0 20px 40px rgba(0,0,0,0.1); width: 90%; max-width: 340px; margin: auto; }
+        .card h2 { color: var(--accent-light); font-weight: 600; font-size: 2rem; margin-bottom: 8px; text-align: center; letter-spacing: -0.5px; }
+        input, textarea { background-color: var(--input-bg); border: 1px solid var(--border-color); border-radius: var(--border-radius-button); padding: 16px 20px; font-size: 1rem; color: var(--text-primary); outline: none; transition: all 0.2s ease; backdrop-filter: blur(5px); }
+        input:focus, textarea:focus { border-color: var(--accent-light); box-shadow: 0 0 0 3px rgba(0,0,0,0.1); background-color: var(--bg-elevated); }
+        textarea { border-radius: 24px; resize: vertical; min-height: 100px; }
+        .btn { background-color: transparent; border: 1px solid var(--accent-light); color: var(--accent-light); padding: 16px; border-radius: var(--border-radius-button); font-size: 1rem; font-weight: 600; cursor: pointer; transition: 0.2s; letter-spacing: 0.3px; }
+        .btn.primary { background: var(--accent-gradient); color: #ffffff; border: none; box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
+        .btn.primary:hover { opacity: 0.9; transform: scale(1.02); box-shadow: 0 12px 20px rgba(0,0,0,0.15); }
+        .btn.secondary { border: 1px solid var(--border-color); color: var(--text-secondary); background: transparent; }
+        .btn.secondary:hover { border-color: var(--accent-light); color: var(--accent-light); background: rgba(0,0,0,0.05); }
+        a { color: var(--accent-light); text-decoration: none; font-size: 0.95rem; text-align: center; cursor: pointer; font-weight: 500; }
+        a:hover { text-decoration: underline; }
 
-        body {
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0;
-            margin: 0;
-            transition: background-color 0.3s ease, color 0.2s ease;
-        }
+        .app-container { display: flex; flex-direction: column; height: 100vh; background: var(--bg-primary); overflow: hidden; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 20px 16px 12px; background: var(--nav-bg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-accent); flex-shrink: 0; height: var(--nav-bar-height); }
+        .top-bar .left { width: 40px; display: flex; justify-content: center; align-items: center; }
+        .top-bar .title { font-size: 1.5rem; font-weight: 700; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 8px; flex: 1; justify-content: center; letter-spacing: -0.5px; }
+        .top-bar .right { display: flex; align-items: center; gap: 12px; width: auto; justify-content: flex-end; }
+        .theme-toggle { font-size: 1.5rem; color: var(--icon-color); cursor: pointer; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; }
+        .theme-toggle:hover { opacity: 0.8; transform: scale(1.05); }
+        .back-btn { font-size: 1.8rem; color: var(--icon-color); cursor: pointer; }
+        .back-btn:hover { opacity: 0.8; transform: translateX(-3px); }
+        .profile-icon { font-size: 1.8rem; color: var(--icon-color); cursor: pointer; }
+        .profile-icon:hover { opacity: 0.8; transform: scale(1.05); }
+        .info-icon { font-size: 1.3rem; color: var(--icon-color); cursor: pointer; }
+        .call-icons { display: flex; gap: 12px; align-items: center; }
+        .call-icon { font-size: 1.5rem; color: var(--icon-color); cursor: pointer; }
+        .call-icon:hover { opacity: 0.8; transform: scale(1.05); }
 
-        .screen {
-            width: 100%;
-            max-width: 400px;
-            height: 100vh;
-            background-color: var(--bg-primary);
-            overflow: hidden;
-        }
+        .content { flex: 1 1 auto; overflow-y: auto; min-height: 0; background: transparent; padding: 8px 0; scrollbar-width: thin; scrollbar-color: var(--accent) var(--border-color); }
+        .content::-webkit-scrollbar { width: 5px; }
+        .content::-webkit-scrollbar-track { background: var(--border-color); }
+        .content::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+        .view { height: 100%; display: flex; flex-direction: column; }
 
-        .hidden {
-            display: none !important;
-        }
+        /* Conversas */
+        .conversation-list { display: flex; flex-direction: column; gap: 6px; padding: 12px 16px; }
+        .conversation-item { display: flex; align-items: center; gap: 14px; padding: 12px 16px; background: var(--bg-elevated); backdrop-filter: blur(5px); border-radius: var(--border-radius-button); transition: 0.2s; cursor: pointer; border: 1px solid transparent; }
+        .conversation-item:hover { background: var(--bg-card); border-color: var(--accent); box-shadow: 0 4px 12px rgba(0,0,0,0.1); transform: translateY(-1px); }
+        .avatar { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(145deg, #2a2a2a, #1a1a1a); border: 2px solid var(--accent-light); flex-shrink: 0; background-size: cover; background-position: center; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        .info { display: flex; flex-direction: column; flex: 1; }
+        .name { font-weight: 600; color: var(--text-primary); font-size: 1.15rem; margin-bottom: 4px; }
+        .last-msg { font-size: 0.9rem; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        #login-screen, #signup-screen, #recovery-screen {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: var(--bg-primary);
-        }
+        /* Chat */
+        .chat-messages { flex: 1; overflow-y: auto; padding: 16px 12px; display: flex; flex-direction: column; gap: 12px; }
+        .message { max-width: 75%; padding: 14px 20px; border-radius: var(--border-radius-message); font-size: 0.95rem; line-height: 1.4; word-wrap: break-word; box-shadow: 0 4px 8px rgba(0,0,0,0.1); animation: fadeInUp 0.2s ease; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .message.me { background: var(--accent-gradient); color: #fff; align-self: flex-end; border-bottom-right-radius: 6px; }
+        .message.other { background: var(--message-other-bg); backdrop-filter: blur(10px); color: var(--text-primary); align-self: flex-start; border-bottom-left-radius: 6px; border: 1px solid var(--border-color); }
+        .message audio { max-width: 200px; height: 40px; border-radius: 30px; }
+        .chat-input-area { display: flex; gap: 10px; padding: 12px 16px; background: var(--bg-elevated); backdrop-filter: blur(10px); border-top: 1px solid var(--border-color); }
+        .chat-input-area input { flex: 1; background-color: var(--input-bg); border: 1px solid var(--border-color); border-radius: var(--border-radius-button); padding: 14px 18px; color: var(--text-primary); font-size: 1rem; }
+        .chat-input-area .action-btn { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; cursor: pointer; transition: 0.2s; border: none; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .action-btn.microphone-btn { background: transparent; color: var(--icon-color); border: 1px solid var(--accent); }
+        .action-btn.microphone-btn.recording { color: #ff5e5e; border-color: #ff5e5e; background: rgba(255, 94, 94, 0.1); animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 94, 94, 0.5); } 70% { box-shadow: 0 0 0 10px rgba(255, 94, 94, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 94, 94, 0); } }
+        .action-btn.send-btn { background: var(--accent-gradient); color: #fff; }
+        .action-btn.send-btn:hover { opacity: 0.9; transform: scale(1.05); }
 
-        .card {
-            background: var(--bg-card);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-radius: var(--border-radius-card);
-            padding: 36px var(--card-padding);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            border: 1px solid var(--border-accent);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 340px;
-            margin: auto;
-        }
+        /* Bottom Nav */
+        .bottom-nav { display: flex; justify-content: space-around; align-items: center; padding: 10px 0 max(10px, env(safe-area-inset-bottom)) 0; background: var(--bg-elevated); backdrop-filter: blur(10px); border-top: 1px solid var(--border-accent); flex-shrink: 0; height: var(--bottom-nav-height); }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-secondary); font-size: 0.75rem; cursor: pointer; padding: 4px 0; flex: 1; }
+        .nav-item i { font-size: 1.4rem; margin-bottom: 2px; }
+        .nav-item.active { color: var(--accent-light); }
 
-        .card h2 {
-            color: var(--accent-light);
-            font-weight: 600;
-            font-size: 2rem;
-            margin-bottom: 8px;
-            text-align: center;
-            letter-spacing: -0.5px;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
+        /* Profile View (Social) */
+        .profile-header { display: flex; align-items: center; padding: 20px 16px; gap: 20px; }
+        .profile-avatar { width: 80px; height: 80px; border-radius: 50%; overflow: hidden; border: 2px solid var(--accent); }
+        .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .profile-stats { display: flex; flex: 1; justify-content: space-around; text-align: center; }
+        .stat { color: var(--text-primary); cursor: pointer; }
+        .stat span { font-weight: 700; display: block; font-size: 1.2rem; }
+        .stat:hover { opacity: 0.8; }
+        .profile-bio-area { padding: 0 16px 20px; }
+        .profile-display-name { font-weight: 700; font-size: 1.2rem; color: var(--text-primary); }
+        .profile-username { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 8px; }
+        .profile-bio { margin: 8px 0; color: var(--text-primary); white-space: pre-wrap; }
+        .profile-actions { display: flex; gap: 10px; margin-top: 12px; }
+        .profile-actions .btn { flex: 1; padding: 10px; font-size: 0.9rem; }
+        .profile-posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; padding: 2px; background: var(--border-color); }
+        .profile-posts-grid .post-item { aspect-ratio: 1/1; background-size: cover; background-position: center; cursor: pointer; transition: opacity 0.2s; }
+        .profile-posts-grid .post-item:hover { opacity: 0.8; }
 
-        input, textarea {
-            background-color: var(--input-bg);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius-button);
-            padding: 16px 20px;
-            font-size: 1rem;
-            color: var(--text-primary);
-            outline: none;
-            transition: all 0.2s ease;
-            backdrop-filter: blur(5px);
-        }
+        /* Profile Edit View */
+        .profile-form { display: flex; flex-direction: column; align-items: center; gap: 28px; padding: 24px 20px; }
+        .avatar-edit { position: relative; width: 110px; height: 110px; }
+        .avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent-light); background-color: #222; }
+        .avatar-edit i { position: absolute; bottom: 5px; right: 5px; background: var(--accent); color: #fff; padding: 10px; border-radius: 50%; font-size: 1.2rem; border: 2px solid var(--bg-primary); cursor: pointer; }
+        .avatar-edit i:hover { background: var(--accent-light); transform: scale(1.05); }
+        .profile-form input, .profile-form textarea { width: 100%; background: var(--input-bg); }
+        #file-input { display: none; }
 
-        input:focus, textarea:focus {
-            border-color: var(--accent-light);
-            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
-            background-color: var(--bg-elevated);
-        }
+        /* Search View (sem botão) */
+        .search-bar { display: flex; align-items: center; background: var(--input-bg); border-radius: var(--border-radius-button); margin: 16px; padding: 0 16px; border: 1px solid var(--border-color); }
+        .search-bar i { color: var(--text-secondary); margin-right: 10px; }
+        .search-bar input { flex: 1; background: transparent; border: none; padding: 14px 0; color: var(--text-primary); outline: none; }
+        .search-results { padding: 0 16px; }
+        .search-result-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border-color); cursor: pointer; }
+        .search-result-item:hover { background: var(--bg-elevated); }
+        .search-result-avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 1px solid var(--accent); }
+        .search-result-info { flex: 1; }
+        .search-result-name { font-weight: 600; color: var(--text-primary); }
+        .search-result-username { color: var(--text-secondary); font-size: 0.9rem; }
 
-        textarea {
-            border-radius: 24px;
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .btn {
-            background-color: transparent;
-            border: 1px solid var(--accent-light);
-            color: var(--accent-light);
-            padding: 16px;
-            border-radius: var(--border-radius-button);
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-            letter-spacing: 0.3px;
-        }
-
-        .btn.primary {
-            background: var(--accent-gradient);
-            color: #ffffff;
-            border: none;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn.primary:hover {
-            opacity: 0.9;
-            transform: scale(1.02);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .btn.secondary {
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            background: transparent;
-        }
-
-        .btn.secondary:hover {
-            border-color: var(--accent-light);
-            color: var(--accent-light);
-            background: rgba(0, 0, 0, 0.05);
-        }
-
-        a {
-            color: var(--accent-light);
-            text-decoration: none;
-            font-size: 0.95rem;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.2s;
-            font-weight: 500;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .app-container {
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            background: var(--bg-primary);
-            overflow: hidden;
-        }
-
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 16px 12px;
-            background: var(--nav-bg);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-accent);
-            flex-shrink: 0;
-            height: var(--nav-bar-height);
-        }
-
-        .top-bar .left {
-            width: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .top-bar .title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex: 1;
-            justify-content: center;
-            letter-spacing: -0.5px;
-        }
-
-        .top-bar .right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            width: auto;
-            justify-content: flex-end;
-        }
-
-        .theme-toggle {
-            font-size: 1.5rem;
-            color: var(--icon-color);
-            cursor: pointer;
-            transition: 0.2s;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .theme-toggle:hover {
-            opacity: 0.8;
-            transform: scale(1.05);
-        }
-
-        .back-btn {
-            font-size: 1.8rem;
-            color: var(--icon-color);
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .back-btn:hover {
-            opacity: 0.8;
-            transform: translateX(-3px);
-        }
-
-        .profile-icon {
-            font-size: 1.8rem;
-            color: var(--icon-color);
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .profile-icon:hover {
-            opacity: 0.8;
-            transform: scale(1.05);
-        }
-
-        .info-icon {
-            font-size: 1.3rem;
-            color: var(--icon-color);
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .info-icon:hover {
-            opacity: 0.8;
-        }
-
-        .call-icons {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .call-icon {
-            font-size: 1.5rem;
-            color: var(--icon-color);
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .call-icon:hover {
-            opacity: 0.8;
-            transform: scale(1.05);
-        }
-
-        .content {
-            flex: 1 1 auto;
-            overflow-y: auto;
-            min-height: 0;
-            background: transparent;
-            padding: 8px 0;
-            scrollbar-width: thin;
-            scrollbar-color: var(--accent) var(--border-color);
-        }
-
-        .content::-webkit-scrollbar {
-            width: 5px;
-        }
-        .content::-webkit-scrollbar-track {
-            background: var(--border-color);
-        }
-        .content::-webkit-scrollbar-thumb {
-            background: var(--accent);
-            border-radius: 10px;
-        }
-
-        .view {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .conversation-list {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            padding: 12px 16px;
-        }
-
-        .conversation-item {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 12px 16px;
+        /* Avisos no chat */
+        .follow-prompt {
             background: var(--bg-elevated);
-            backdrop-filter: blur(5px);
-            border-radius: var(--border-radius-button);
-            transition: 0.2s;
-            cursor: pointer;
-            border: 1px solid transparent;
-        }
-
-        .conversation-item:hover {
-            background: var(--bg-card);
-            border-color: var(--accent);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transform: translateY(-1px);
-        }
-
-        .avatar {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
-            border: 2px solid var(--accent-light);
-            flex-shrink: 0;
-            background-size: cover;
-            background-position: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        .info {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-
-        .name {
-            font-weight: 600;
-            color: var(--text-primary);
-            font-size: 1.15rem;
-            margin-bottom: 4px;
-        }
-
-        .last-msg {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 16px 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            scrollbar-width: thin;
-        }
-
-        .message {
-            max-width: 75%;
-            padding: 14px 20px;
-            border-radius: var(--border-radius-message);
-            font-size: 0.95rem;
-            line-height: 1.4;
-            word-wrap: break-word;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            animation: fadeInUp 0.2s ease;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .message.me {
-            background: var(--accent-gradient);
-            color: #fff;
-            align-self: flex-end;
-            border-bottom-right-radius: 6px;
-        }
-
-        .message.other {
-            background: var(--message-other-bg);
-            backdrop-filter: blur(10px);
-            color: var(--text-primary);
-            align-self: flex-start;
-            border-bottom-left-radius: 6px;
-            border: 1px solid var(--border-color);
-        }
-
-        .message audio {
-            max-width: 200px;
-            height: 40px;
-            border-radius: 30px;
-        }
-
-        .chat-input-area {
-            display: flex;
-            gap: 10px;
-            padding: 12px 16px;
-            background: var(--bg-elevated);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid var(--border-color);
-        }
-
-        .chat-input-area input {
-            flex: 1;
-            background-color: var(--input-bg);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius-button);
-            padding: 14px 18px;
-            color: var(--text-primary);
-            font-size: 1rem;
-        }
-
-        .chat-input-area .action-btn {
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            cursor: pointer;
-            transition: 0.2s;
-            border: none;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        .action-btn.microphone-btn {
-            background: transparent;
-            color: var(--icon-color);
             border: 1px solid var(--accent);
+            border-radius: var(--border-radius-message);
+            padding: 12px 16px;
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.95rem;
         }
-
-        .action-btn.microphone-btn.recording {
-            color: #ff5e5e;
-            border-color: #ff5e5e;
-            background: rgba(255, 94, 94, 0.1);
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 94, 94, 0.5); }
-            70% { box-shadow: 0 0 0 10px rgba(255, 94, 94, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 94, 94, 0); }
-        }
-
-        .action-btn.send-btn {
-            background: var(--accent-gradient);
+        .follow-prompt button {
+            background: var(--accent);
             color: #fff;
-        }
-
-        .action-btn.send-btn:hover {
-            opacity: 0.9;
-            transform: scale(1.05);
-        }
-
-        .action-btn.microphone-btn:hover {
-            background: rgba(0, 0, 0, 0.05);
-        }
-
-        .bottom-nav {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 10px 0 max(10px, env(safe-area-inset-bottom)) 0;
-            background: var(--bg-elevated);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid var(--border-accent);
-            flex-shrink: 0;
-            height: var(--bottom-nav-height);
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: var(--text-secondary);
-            font-size: 0.75rem;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-weight: 600;
             cursor: pointer;
-            transition: 0.2s;
-            padding: 4px 0;
-            flex: 1;
+            margin-left: 10px;
+        }
+        .follow-prompt button:hover {
+            opacity: 0.9;
+        }
+        .remaining-warning {
+            background: rgba(255, 193, 7, 0.2);
+            border-left: 3px solid #ffc107;
+            padding: 8px 12px;
+            margin: 8px 0;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            border-radius: 4px;
         }
 
-        .nav-item i {
-            font-size: 1.4rem;
-            margin-bottom: 2px;
-        }
-
-        .nav-item.active {
-            color: var(--accent-light);
-        }
-
-        .nav-item:hover {
-            color: var(--accent-light);
-        }
-
-        .call-modal {
+        /* Modais */
+        .call-modal, .bio-modal, .followers-modal {
             position: fixed;
             top: 0;
             left: 0;
@@ -577,183 +208,30 @@
             align-items: center;
             z-index: 2000;
         }
-
-        .call-modal-content {
+        .call-modal-content, .bio-modal-content, .followers-modal-content {
             background: var(--bg-card);
             backdrop-filter: blur(20px);
             border-radius: var(--border-radius-card);
             padding: 32px;
             max-width: 320px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
             text-align: center;
             border: 1px solid var(--accent);
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
+        .followers-modal-content h3 { color: var(--accent-light); margin-bottom: 20px; }
+        .followers-list { list-style: none; padding: 0; }
+        .followers-list li { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border-color); cursor: pointer; }
+        .followers-list li:hover { background: var(--bg-elevated); }
+        .followers-list img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+        .followers-list .follower-name { font-weight: 600; color: var(--text-primary); }
+        .followers-list .follower-username { color: var(--text-secondary); font-size: 0.8rem; }
 
-        .call-modal-content p {
-            margin-bottom: 24px;
-            color: var(--text-primary);
-            font-size: 1.2rem;
-        }
-
-        .call-modal-content button {
-            margin: 6px;
-            min-width: 100px;
-        }
-
-        #active-call-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            z-index: 1500;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: var(--bg-primary);
-        }
-
-        .video-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            max-width: 800px;
-            padding: 10px;
-        }
-
-        #remote-video, #local-video {
-            background: #111;
-            border-radius: 24px;
-            width: 100%;
-            max-width: 400px;
-            height: auto;
-            border: 2px solid var(--accent);
-            box-shadow: 0 20px 30px rgba(0,0,0,0.3);
-        }
-
-        #local-video {
-            max-width: 150px;
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            border-width: 1px;
-            border-color: var(--accent-light);
-        }
-
-        #end-call-btn {
-            margin-top: 20px;
-            background: #ff4444;
-            color: white;
-            border: none;
-            padding: 14px 32px;
-            border-radius: var(--border-radius-button);
-            font-weight: bold;
-            font-size: 1.1rem;
-            box-shadow: 0 8px 16px rgba(255,68,68,0.3);
-            transition: 0.2s;
-        }
-
-        #end-call-btn:hover {
-            background: #ff6666;
-            transform: scale(1.02);
-        }
-
-        .profile-form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 28px;
-            padding: 24px 20px;
-        }
-
-        .avatar-edit {
-            position: relative;
-            width: 110px;
-            height: 110px;
-        }
-
-        .avatar-img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--accent-light);
-            background-color: #222;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-        }
-
-        .avatar-edit i {
-            position: absolute;
-            bottom: 5px;
-            right: 5px;
-            background: var(--accent);
-            color: #fff;
-            padding: 10px;
-            border-radius: 50%;
-            font-size: 1.2rem;
-            border: 2px solid var(--bg-primary);
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .avatar-edit i:hover {
-            background: var(--accent-light);
-            transform: scale(1.05);
-        }
-
-        .profile-form input, .profile-form textarea {
-            width: 100%;
-            background: var(--input-bg);
-        }
-
-        #file-input {
-            display: none;
-        }
-
-        .bio-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.9);
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .bio-modal-content {
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            border-radius: var(--border-radius-card);
-            padding: 28px;
-            max-width: 320px;
-            width: 80%;
-            border: 1px solid var(--accent);
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-
-        .bio-modal-content h3 {
-            color: var(--accent-light);
-            margin-bottom: 12px;
-            font-size: 1.6rem;
-        }
-
-        .bio-modal-content p {
-            margin-bottom: 24px;
-            color: var(--text-primary);
-            font-size: 1.1rem;
-            line-height: 1.5;
-        }
-
-        .bio-modal-content button {
+        .bio-modal-content h3 { color: var(--accent-light); margin-bottom: 12px; font-size: 1.6rem; }
+        .bio-modal-content p { margin-bottom: 24px; color: var(--text-primary); font-size: 1.1rem; line-height: 1.5; }
+        .bio-modal-content button, .followers-modal-content button {
             background: var(--accent);
             color: #fff;
             border: none;
@@ -761,92 +239,23 @@
             border-radius: var(--border-radius-button);
             font-weight: 600;
             cursor: pointer;
-            transition: 0.2s;
+            margin-top: 16px;
         }
 
-        .bio-modal-content button:hover {
-            background: var(--accent-light);
-            transform: scale(1.02);
-        }
+        /* Chamada de vídeo */
+        #active-call-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 1500; display: flex; flex-direction: column; justify-content: center; align-items: center; background: var(--bg-primary); }
+        .video-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; width: 100%; max-width: 800px; padding: 10px; }
+        #remote-video, #local-video { background: #111; border-radius: 24px; width: 100%; max-width: 400px; height: auto; border: 2px solid var(--accent); }
+        #local-video { max-width: 150px; position: absolute; bottom: 20px; right: 20px; border-width: 1px; border-color: var(--accent-light); }
+        #end-call-btn { margin-top: 20px; background: #ff4444; color: white; border: none; padding: 14px 32px; border-radius: var(--border-radius-button); font-weight: bold; font-size: 1.1rem; box-shadow: 0 8px 16px rgba(255,68,68,0.3); }
 
-        /* Media queries responsivas */
-        @media (max-width: 413px) {
-            .card {
-                padding: 24px 16px;
-            }
-            .card h2 {
-                font-size: 1.8rem;
-            }
-            .avatar {
-                width: 48px;
-                height: 48px;
-            }
-            .conversation-item {
-                padding: 10px 12px;
-            }
-            .top-bar .title {
-                font-size: 1.3rem;
-            }
-            .nav-item i {
-                font-size: 1.2rem;
-            }
-            .nav-item span {
-                font-size: 0.7rem;
-            }
-        }
-
-        @media (min-width: 736px) and (max-width: 875px) {
-            .screen {
-                max-width: 450px;
-            }
-        }
-
-        @media (min-width: 876px) {
-            .screen {
-                max-width: 480px;
-            }
-        }
-
-        @media (orientation: landscape) and (max-height: 500px) {
-            .top-bar {
-                padding: 10px 16px;
-                height: 50px;
-            }
-            .bottom-nav {
-                padding: 5px 0;
-                height: 50px;
-            }
-            .conversation-item {
-                padding: 8px 12px;
-            }
-            .avatar {
-                width: 40px;
-                height: 40px;
-            }
-            .chat-input-area {
-                padding: 8px 12px;
-            }
-            .chat-input-area input {
-                padding: 10px 14px;
-            }
-            .chat-input-area .action-btn {
-                width: 44px;
-                height: 44px;
-                font-size: 1.1rem;
-            }
-        }
-
-        @supports (padding: max(0px)) {
-            .top-bar {
-                padding-top: max(20px, env(safe-area-inset-top));
-            }
-            .bottom-nav {
-                padding-bottom: max(10px, env(safe-area-inset-bottom));
-            }
-        }
+        /* Responsividade */
+        @media (max-width: 413px) { .card { padding: 24px 16px; } .card h2 { font-size: 1.8rem; } .avatar { width: 48px; height: 48px; } .top-bar .title { font-size: 1.3rem; } }
+        @media (orientation: landscape) and (max-height: 500px) { .top-bar { padding: 10px 16px; height: 50px; } .bottom-nav { padding: 5px 0; height: 50px; } }
+        @supports (padding: max(0px)) { .top-bar { padding-top: max(20px, env(safe-area-inset-top)); } .bottom-nav { padding-bottom: max(10px, env(safe-area-inset-bottom)); } }
     </style>
 </head>
-<body class="theme-dark"> <!-- Tema padrão -->
+<body class="theme-dark">
     <!-- LOGIN -->
     <div id="login-screen" class="screen">
         <div class="card">
@@ -863,8 +272,9 @@
     <div id="signup-screen" class="screen hidden">
         <div class="card">
             <h2>Criar conta</h2>
-            <input type="text" id="signup-name" placeholder="Nome" value="João">
-            <input type="email" id="signup-email" placeholder="E-mail" value="joao@got.com">
+            <input type="text" id="signup-username" placeholder="Username (sem espaços)" value="demo">
+            <input type="text" id="signup-name" placeholder="Nome" value="Demo User">
+            <input type="email" id="signup-email" placeholder="E-mail" value="demo@got.com">
             <input type="password" id="signup-password" placeholder="Senha" value="123456">
             <button class="btn primary" id="signup-btn">Criar Conta</button>
             <a href="#" id="login-link">Voltar ao login</a>
@@ -892,7 +302,6 @@
                         <i class="fas fa-phone call-icon" id="header-audio-call" title="Chamada de áudio"></i>
                         <i class="fas fa-video call-icon" id="header-video-call" title="Chamada de vídeo"></i>
                     </div>
-                    <!-- Botão de alternância de tema -->
                     <i class="fas fa-moon theme-toggle" id="theme-toggle" title="Alternar tema"></i>
                     <i class="fas fa-user-circle profile-icon" id="profile-icon"></i>
                 </div>
@@ -902,6 +311,7 @@
                 <div id="conversations-view" class="view">
                     <div class="conversation-list" id="conversation-list"></div>
                 </div>
+
                 <!-- CHAT -->
                 <div id="chat-view" class="view hidden">
                     <div class="chat-messages" id="chat-messages"></div>
@@ -910,8 +320,34 @@
                         <button id="action-btn" class="action-btn microphone-btn"><i class="fas fa-microphone"></i></button>
                     </div>
                 </div>
-                <!-- PERFIL -->
+
+                <!-- PERFIL SOCIAL -->
                 <div id="profile-view" class="view hidden">
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <img src="" alt="Avatar" id="profile-view-avatar">
+                        </div>
+                        <div class="profile-stats">
+                            <div class="stat" id="posts-stat"><span id="profile-posts-count">0</span> posts</div>
+                            <div class="stat" id="followers-stat"><span id="profile-followers-count">0</span> seguidores</div>
+                            <div class="stat" id="following-stat"><span id="profile-following-count">0</span> seguindo</div>
+                        </div>
+                    </div>
+                    <div class="profile-bio-area">
+                        <div class="profile-display-name" id="profile-display-name"></div>
+                        <div class="profile-username" id="profile-username"></div>
+                        <div class="profile-bio" id="profile-bio"></div>
+                        <div class="profile-actions" id="profile-actions">
+                            <!-- Botões inseridos dinamicamente -->
+                        </div>
+                    </div>
+                    <div class="profile-posts-grid" id="profile-posts-grid">
+                        <!-- Posts -->
+                    </div>
+                </div>
+
+                <!-- EDIÇÃO DE PERFIL -->
+                <div id="profile-edit-view" class="view hidden">
                     <div class="profile-form">
                         <div class="avatar-edit" id="avatar-edit">
                             <img src="" alt="Avatar" class="avatar-img" id="avatar-img" />
@@ -919,32 +355,41 @@
                             <input type="file" id="file-input" accept="image/*">
                         </div>
                         <input type="text" placeholder="Nome" id="profile-name" value="">
-                        <textarea placeholder="Bio" id="profile-bio"></textarea>
+                        <textarea placeholder="Bio" id="profile-bio-edit"></textarea>
                         <button class="btn primary" id="save-profile">Salvar</button>
                         <button class="btn secondary" id="cancel-profile">Cancelar</button>
                         <button class="btn secondary" id="logout-btn">Sair</button>
                     </div>
                 </div>
-                <!-- NOVAS VIEWS -->
+
+                <!-- HOME -->
                 <div id="home-view" class="view hidden">
                     <div style="padding: 20px; text-align: center;">
                         <h2>🏠 Home</h2>
                         <p>Em breve: feed de posts.</p>
                     </div>
                 </div>
+
+                <!-- VÍDEOS -->
                 <div id="videos-view" class="view hidden">
                     <div style="padding: 20px; text-align: center;">
                         <h2>📹 Vídeos</h2>
                         <p>Em breve: vídeos e reels.</p>
                     </div>
                 </div>
+
+                <!-- PESQUISA (sem botão seguir) -->
                 <div id="search-view" class="view hidden">
-                    <div style="padding: 20px; text-align: center;">
-                        <h2>🔍 Pesquisar</h2>
-                        <p>Em breve: busca de usuários e conteúdo.</p>
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="search-input" placeholder="Pesquisar usuários..." autocomplete="off">
+                    </div>
+                    <div class="search-results" id="search-results">
+                        <p style="text-align:center; color:var(--text-secondary);">Digite para buscar</p>
                     </div>
                 </div>
             </div>
+
             <!-- BARRA DE NAVEGAÇÃO INFERIOR -->
             <div class="bottom-nav">
                 <div class="nav-item" data-tab="home"><i class="fas fa-home"></i><span>Home</span></div>
@@ -956,7 +401,7 @@
         </div>
     </div>
 
-    <!-- MODAL DE BIO -->
+    <!-- MODAIS -->
     <div id="bio-modal" class="bio-modal hidden">
         <div class="bio-modal-content">
             <h3 id="bio-modal-name"></h3>
@@ -965,7 +410,14 @@
         </div>
     </div>
 
-    <!-- MODAL DE CHAMADA RECEBIDA -->
+    <div id="followers-modal" class="followers-modal hidden">
+        <div class="followers-modal-content">
+            <h3 id="followers-modal-title">Seguidores</h3>
+            <ul class="followers-list" id="followers-list"></ul>
+            <button id="close-followers-modal">Fechar</button>
+        </div>
+    </div>
+
     <div id="incoming-call-modal" class="call-modal hidden">
         <div class="call-modal-content">
             <p>Chamada recebida de <span id="caller-name"></span></p>
@@ -975,7 +427,6 @@
         </div>
     </div>
 
-    <!-- CONTÊINER DE VÍDEO (CHAMADA ATIVA) -->
     <div id="active-call-container" class="hidden">
         <div class="video-grid">
             <video id="remote-video" autoplay playsinline></video>
@@ -986,7 +437,6 @@
 
     <script>
         (function() {
-            // Altere para o endereço do seu servidor
             const API_BASE = window.location.origin;
             const WS_BASE = API_BASE.replace('http', 'ws');
 
@@ -994,6 +444,11 @@
             let currentUser = null;
             let currentContactId = null;
             let currentContactName = '';
+            let currentContactFollowStatus = {
+                i_follow_them: false,
+                they_follow_me: false,
+                remaining: null
+            };
             let ws = null;
 
             // Estado de chamada
@@ -1008,6 +463,10 @@
             let audioChunks = [];
             let isRecording = false;
 
+            // Perfil atual sendo visualizado
+            let currentProfileUserId = null;
+            let isOwnProfile = false;
+
             const iceServers = {
                 iceServers: [
                     { urls: 'stun:stun.l.google.com:19302' },
@@ -1015,30 +474,64 @@
                 ]
             };
 
-            // Elementos DOM
+            // Elementos DOM principais
             const loginScreen = document.getElementById('login-screen');
             const signupScreen = document.getElementById('signup-screen');
             const recoveryScreen = document.getElementById('recovery-screen');
             const appScreen = document.getElementById('app-screen');
+
+            // Views
+            const homeView = document.getElementById('home-view');
+            const videosView = document.getElementById('videos-view');
             const conversationsView = document.getElementById('conversations-view');
             const chatView = document.getElementById('chat-view');
             const profileView = document.getElementById('profile-view');
+            const profileEditView = document.getElementById('profile-edit-view');
+            const searchView = document.getElementById('search-view');
+
             const appTitle = document.getElementById('app-title');
             const backBtn = document.getElementById('back-btn');
             const profileIcon = document.getElementById('profile-icon');
             const chatMessages = document.getElementById('chat-messages');
             const chatInput = document.getElementById('chat-input');
             const conversationList = document.getElementById('conversation-list');
-            const profileName = document.getElementById('profile-name');
+            const actionBtn = document.getElementById('action-btn');
+
+            // Elementos de perfil
+            const profileViewAvatar = document.getElementById('profile-view-avatar');
+            const profilePostsCount = document.getElementById('profile-posts-count');
+            const profileFollowersCount = document.getElementById('profile-followers-count');
+            const profileFollowingCount = document.getElementById('profile-following-count');
+            const profileDisplayName = document.getElementById('profile-display-name');
+            const profileUsername = document.getElementById('profile-username');
             const profileBio = document.getElementById('profile-bio');
+            const profileActions = document.getElementById('profile-actions');
+            const profilePostsGrid = document.getElementById('profile-posts-grid');
+
+            // Elementos de edição de perfil
             const avatarImg = document.getElementById('avatar-img');
             const fileInput = document.getElementById('file-input');
             const cameraIcon = document.getElementById('camera-icon');
+            const profileNameInput = document.getElementById('profile-name');
+            const profileBioInput = document.getElementById('profile-bio-edit');
+            const saveProfileBtn = document.getElementById('save-profile');
+            const cancelProfileBtn = document.getElementById('cancel-profile');
             const logoutBtn = document.getElementById('logout-btn');
+
+            // Elementos de busca
+            const searchInput = document.getElementById('search-input');
+            const searchResults = document.getElementById('search-results');
+
+            // Modais
             const bioModal = document.getElementById('bio-modal');
             const bioModalName = document.getElementById('bio-modal-name');
             const bioModalText = document.getElementById('bio-modal-text');
             const closeBioModal = document.getElementById('close-bio-modal');
+
+            const followersModal = document.getElementById('followers-modal');
+            const followersModalTitle = document.getElementById('followers-modal-title');
+            const followersList = document.getElementById('followers-list');
+            const closeFollowersModal = document.getElementById('close-followers-modal');
 
             // Elementos de chamada
             const headerAudioBtn = document.getElementById('header-audio-call');
@@ -1053,9 +546,6 @@
             const remoteVideo = document.getElementById('remote-video');
             const localVideo = document.getElementById('local-video');
             const endCallBtn = document.getElementById('end-call-btn');
-
-            // Botão de ação único
-            const actionBtn = document.getElementById('action-btn');
 
             let currentView = 'conversations';
 
@@ -1093,21 +583,42 @@
                 if (screenId === 'app') appScreen.classList.remove('hidden');
             }
 
-            function showView(viewName, param = null) {
-                if (callState !== 'idle' && viewName !== 'chat') {
-                    endCall();
-                }
+            function setActiveNav(tab) {
+                document.querySelectorAll('.bottom-nav .nav-item').forEach(item => {
+                    item.classList.remove('active');
+                    if (item.dataset.tab === tab) item.classList.add('active');
+                });
+            }
 
+            function showView(viewName, param = null) {
+                if (callState !== 'idle' && viewName !== 'chat') endCall();
+
+                homeView.classList.add('hidden');
+                videosView.classList.add('hidden');
                 conversationsView.classList.add('hidden');
                 chatView.classList.add('hidden');
                 profileView.classList.add('hidden');
+                profileEditView.classList.add('hidden');
+                searchView.classList.add('hidden');
 
-                if (viewName === 'conversations') {
+                if (viewName === 'home') {
+                    homeView.classList.remove('hidden');
+                    appTitle.innerHTML = 'Home';
+                    backBtn.classList.add('hidden');
+                    chatCallButtons.classList.add('hidden');
+                    setActiveNav('home');
+                } else if (viewName === 'videos') {
+                    videosView.classList.remove('hidden');
+                    appTitle.innerHTML = 'Vídeos';
+                    backBtn.classList.add('hidden');
+                    chatCallButtons.classList.add('hidden');
+                    setActiveNav('videos');
+                } else if (viewName === 'direct') {
                     conversationsView.classList.remove('hidden');
                     appTitle.innerHTML = 'Direct';
                     backBtn.classList.add('hidden');
                     chatCallButtons.classList.add('hidden');
-                    currentView = 'conversations';
+                    setActiveNav('direct');
                     loadConversations();
                 } else if (viewName === 'chat') {
                     chatView.classList.remove('hidden');
@@ -1117,50 +628,275 @@
                     `;
                     backBtn.classList.remove('hidden');
                     chatCallButtons.classList.remove('hidden');
-                    currentView = 'chat';
                     currentContactId = param?.id;
                     currentContactName = param?.name;
+                    currentContactFollowStatus = {
+                        i_follow_them: param?.i_follow_them || false,
+                        they_follow_me: param?.they_follow_me || false,
+                        remaining: param?.remaining !== undefined ? param.remaining : null
+                    };
                     loadMessages(param?.id);
-                    // Atualiza o botão de ação conforme o input
                     chatInput.value = '';
+                    chatInput.disabled = false;
                     updateActionButton();
-                    document.getElementById('show-bio-icon')?.addEventListener('click', () => showBio(param?.id));
+                    setTimeout(() => {
+                        document.getElementById('show-bio-icon')?.addEventListener('click', () => showBio(param?.id));
+                    }, 0);
+                    setActiveNav('direct');
                 } else if (viewName === 'profile') {
                     profileView.classList.remove('hidden');
+                    appTitle.innerHTML = 'Perfil';
+                    backBtn.classList.remove('hidden');
+                    chatCallButtons.classList.add('hidden');
+                    setActiveNav('profile');
+                    if (param?.userId) {
+                        showProfile(param.userId);
+                    } else {
+                        showProfile(currentUser?.id);
+                    }
+                } else if (viewName === 'profile-edit') {
+                    profileEditView.classList.remove('hidden');
                     appTitle.innerHTML = 'Editar Perfil';
                     backBtn.classList.remove('hidden');
                     chatCallButtons.classList.add('hidden');
-                    currentView = 'profile';
-                    loadProfile();
+                    setActiveNav('profile');
+                    loadProfileEdit();
+                } else if (viewName === 'search') {
+                    searchView.classList.remove('hidden');
+                    appTitle.innerHTML = 'Pesquisar';
+                    backBtn.classList.add('hidden');
+                    chatCallButtons.classList.add('hidden');
+                    setActiveNav('search');
+                    searchInput.value = '';
+                    searchResults.innerHTML = '<p style="text-align:center; color:var(--text-secondary);">Digite para buscar</p>';
                 }
+
+                currentView = viewName;
             }
 
-            // === Função para atualizar o botão de ação ===
-            function updateActionButton() {
-                if (!actionBtn) return;
-                if (chatInput.value.trim() === '') {
-                    // Modo microfone
-                    actionBtn.className = 'action-btn microphone-btn';
-                    if (isRecording) {
-                        actionBtn.innerHTML = '<i class="fas fa-stop"></i>';
-                        actionBtn.classList.add('recording');
+            // === Função para garantir que o usuário siga antes de enviar mensagem ===
+            async function ensureFollowingBeforeMessage(targetUserId, targetName) {
+                try {
+                    const status = await apiRequest(`/follow/status/${targetUserId}`);
+                    if (status.following) return true;
+                } catch (e) {
+                    console.error('Erro ao verificar follow status', e);
+                    return false;
+                }
+
+                return new Promise((resolve) => {
+                    const modal = document.createElement('div');
+                    modal.className = 'call-modal';
+                    modal.innerHTML = `
+                        <div class="call-modal-content">
+                            <p>Você precisa seguir ${targetName} para enviar mensagem. Deseja seguir agora?</p>
+                            <button id="follow-yes" class="btn primary">Seguir</button>
+                            <button id="follow-no" class="btn secondary">Cancelar</button>
+                        </div>
+                    `;
+                    document.body.appendChild(modal);
+                    modal.classList.remove('hidden');
+
+                    document.getElementById('follow-yes').addEventListener('click', async () => {
+                        modal.remove();
+                        try {
+                            await apiRequest(`/follow/${targetUserId}`, { method: 'POST' });
+                            if (currentView === 'profile' && currentProfileUserId === targetUserId) {
+                                showProfile(targetUserId);
+                            }
+                            resolve(true);
+                        } catch (e) {
+                            alert('Erro ao seguir: ' + e.message);
+                            resolve(false);
+                        }
+                    });
+
+                    document.getElementById('follow-no').addEventListener('click', () => {
+                        modal.remove();
+                        resolve(false);
+                    });
+                });
+            }
+
+            // === Funções de perfil ===
+            async function showProfile(userId) {
+                if (!userId) return;
+                currentProfileUserId = userId;
+                try {
+                    const user = await apiRequest(`/users/${userId}`);
+                    profileViewAvatar.src = user.avatar_url ? (API_BASE + user.avatar_url) : 'https://via.placeholder.com/80/2a2a2a/8A2BE2?text=U';
+                    profilePostsCount.textContent = user.posts_count;
+                    profileFollowersCount.textContent = user.followers_count;
+                    profileFollowingCount.textContent = user.following_count;
+                    profileDisplayName.textContent = user.name;
+                    profileUsername.textContent = '@' + user.username;
+                    profileBio.textContent = user.bio || 'Sem bio.';
+
+                    document.getElementById('followers-stat').onclick = () => showFollowersList(userId, 'followers');
+                    document.getElementById('following-stat').onclick = () => showFollowersList(userId, 'following');
+
+                    isOwnProfile = (currentUser && user.id === currentUser.id);
+                    profileActions.innerHTML = '';
+
+                    if (isOwnProfile) {
+                        const editBtn = document.createElement('button');
+                        editBtn.className = 'btn primary';
+                        editBtn.textContent = 'Editar Perfil';
+                        editBtn.addEventListener('click', () => showView('profile-edit'));
+                        profileActions.appendChild(editBtn);
                     } else {
-                        actionBtn.innerHTML = '<i class="fas fa-microphone"></i>';
-                        actionBtn.classList.remove('recording');
+                        const followBtn = document.createElement('button');
+                        followBtn.className = 'btn secondary';
+                        followBtn.textContent = 'Seguir';
+                        followBtn.id = 'follow-btn';
+                        profileActions.appendChild(followBtn);
+
+                        const msgBtn = document.createElement('button');
+                        msgBtn.className = 'btn primary';
+                        msgBtn.textContent = 'Mensagem';
+                        msgBtn.addEventListener('click', async () => {
+                            const canProceed = await ensureFollowingBeforeMessage(user.id, user.name);
+                            if (canProceed) {
+                                showView('chat', { id: user.id, name: user.name });
+                            }
+                        });
+                        profileActions.appendChild(msgBtn);
+
+                        try {
+                            const status = await apiRequest(`/follow/status/${user.id}`);
+                            if (status.following) {
+                                followBtn.textContent = 'Seguindo';
+                                followBtn.classList.add('following');
+                            }
+                            followBtn.addEventListener('click', async () => {
+                                if (followBtn.textContent === 'Seguir') {
+                                    await apiRequest(`/follow/${user.id}`, { method: 'POST' });
+                                    followBtn.textContent = 'Seguindo';
+                                    followBtn.classList.add('following');
+                                    profileFollowersCount.textContent = parseInt(profileFollowersCount.textContent) + 1;
+                                } else {
+                                    await apiRequest(`/follow/${user.id}`, { method: 'DELETE' });
+                                    followBtn.textContent = 'Seguir';
+                                    followBtn.classList.remove('following');
+                                    profileFollowersCount.textContent = parseInt(profileFollowersCount.textContent) - 1;
+                                }
+                            });
+                        } catch (e) {
+                            console.error('Erro ao verificar follow', e);
+                        }
                     }
-                } else {
-                    // Modo enviar
-                    actionBtn.className = 'action-btn send-btn';
-                    actionBtn.innerHTML = '<i class="fas fa-paper-plane"></i>';
+
+                    // Carregar posts
+                    loadUserPosts(userId);
+                } catch (e) {
+                    console.error('Erro ao carregar perfil', e);
                 }
             }
 
-            // === WebSocket ===
+            async function loadUserPosts(userId) {
+                try {
+                    const posts = await apiRequest(`/users/${userId}/posts`);
+                    profilePostsGrid.innerHTML = '';
+                    if (posts.length === 0) {
+                        profilePostsGrid.innerHTML = '<div style="grid-column: span 3; text-align: center; padding: 40px; color: var(--text-secondary);">Nenhum post ainda</div>';
+                        return;
+                    }
+                    posts.forEach(post => {
+                        const div = document.createElement('div');
+                        div.className = 'post-item';
+                        div.style.backgroundImage = `url('${API_BASE}${post.image_url}')`;
+                        div.title = post.caption || '';
+                        profilePostsGrid.appendChild(div);
+                    });
+                } catch (e) {
+                    console.error('Erro ao carregar posts', e);
+                }
+            }
+
+            function loadProfileEdit() {
+                if (!currentUser) return;
+                profileNameInput.value = currentUser.name;
+                profileBioInput.value = currentUser.bio || '';
+                avatarImg.src = currentUser.avatar_url ? API_BASE + currentUser.avatar_url : 'https://via.placeholder.com/100/2a2a2a/8A2BE2?text=U';
+            }
+
+            // === Funções para listar seguidores/seguindo ===
+            async function showFollowersList(userId, type) {
+                try {
+                    const users = await apiRequest(`/users/${userId}/${type}`);
+                    followersModalTitle.textContent = type === 'followers' ? 'Seguidores' : 'Seguindo';
+                    followersList.innerHTML = '';
+                    if (users.length === 0) {
+                        followersList.innerHTML = '<li style="justify-content:center; color:var(--text-secondary);">Nenhum usuário</li>';
+                    } else {
+                        users.forEach(u => {
+                            const li = document.createElement('li');
+                            li.innerHTML = `
+                                <img src="${u.avatar_url ? API_BASE + u.avatar_url : 'https://via.placeholder.com/40/2a2a2a/8A2BE2?text=U'}" alt="avatar">
+                                <div>
+                                    <div class="follower-name">${u.name}</div>
+                                    <div class="follower-username">@${u.username}</div>
+                                </div>
+                            `;
+                            li.addEventListener('click', () => {
+                                followersModal.classList.add('hidden');
+                                showView('profile', { userId: u.id });
+                            });
+                            followersList.appendChild(li);
+                        });
+                    }
+                    followersModal.classList.remove('hidden');
+                } catch (e) {
+                    alert('Erro ao carregar lista');
+                }
+            }
+
+            // === Funções de busca ===
+            let searchTimeout;
+            searchInput.addEventListener('input', (e) => {
+                clearTimeout(searchTimeout);
+                const q = e.target.value.trim();
+                searchTimeout = setTimeout(() => performSearch(q), 300);
+            });
+
+            async function performSearch(query) {
+                if (!query) {
+                    searchResults.innerHTML = '<p style="text-align:center; color:var(--text-secondary);">Digite para buscar</p>';
+                    return;
+                }
+                try {
+                    const users = await apiRequest(`/users/search?q=${encodeURIComponent(query)}`);
+                    searchResults.innerHTML = '';
+                    if (users.length === 0) {
+                        searchResults.innerHTML = '<p style="text-align:center; color:var(--text-secondary);">Nenhum usuário encontrado</p>';
+                        return;
+                    }
+                    users.forEach(user => {
+                        const item = document.createElement('div');
+                        item.className = 'search-result-item';
+                        item.dataset.userId = user.id;
+                        item.innerHTML = `
+                            <img src="${user.avatar_url ? API_BASE + user.avatar_url : 'https://via.placeholder.com/50/2a2a2a/8A2BE2?text=U'}" class="search-result-avatar">
+                            <div class="search-result-info">
+                                <div class="search-result-name">${user.name}</div>
+                                <div class="search-result-username">@${user.username}</div>
+                            </div>
+                        `;
+                        item.addEventListener('click', () => {
+                            showView('profile', { userId: user.id });
+                        });
+                        searchResults.appendChild(item);
+                    });
+                } catch (e) {
+                    console.error('Erro na busca', e);
+                }
+            }
+
+            // === WebSocket e mensagens ===
             function connectWebSocket() {
                 if (!token || !currentUser) return;
                 const wsUrl = `${WS_BASE}/ws/${currentUser.id}?token=${encodeURIComponent(token)}`;
                 ws = new WebSocket(wsUrl);
-
                 ws.onopen = () => console.log('WebSocket conectado');
                 ws.onmessage = (event) => {
                     const data = JSON.parse(event.data);
@@ -1174,18 +910,12 @@
             }
 
             function disconnectWebSocket() {
-                if (ws) {
-                    ws.close();
-                    ws = null;
-                }
+                if (ws) { ws.close(); ws = null; }
             }
 
             function sendWebSocketMessage(msg) {
-                if (ws && ws.readyState === WebSocket.OPEN) {
-                    ws.send(JSON.stringify(msg));
-                } else {
-                    console.warn('WebSocket não está aberto');
-                }
+                if (ws && ws.readyState === WebSocket.OPEN) ws.send(JSON.stringify(msg));
+                else console.warn('WebSocket não está aberto');
             }
 
             function displayMessage(msg, isMe) {
@@ -1201,10 +931,28 @@
                 }
                 chatMessages.appendChild(div);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                if (msg.from_non_follower && !isMe && !currentContactFollowStatus.i_follow_them) {
+                    const prompt = document.createElement('div');
+                    prompt.className = 'follow-prompt';
+                    prompt.innerHTML = `
+                        <span>${currentContactName} quer conversar com você. Siga de volta para continuar a conversa.</span>
+                        <button id="follow-back-btn">Seguir</button>
+                    `;
+                    prompt.querySelector('#follow-back-btn').addEventListener('click', async () => {
+                        try {
+                            await apiRequest(`/follow/${currentContactId}`, { method: 'POST' });
+                            currentContactFollowStatus.i_follow_them = true;
+                            prompt.remove();
+                        } catch (e) {
+                            alert('Erro ao seguir: ' + e.message);
+                        }
+                    });
+                    chatMessages.appendChild(prompt);
+                }
             }
 
             function handleIncomingMessage(msg) {
-                // Mensagens de chat
                 if (msg.sender_id && (msg.content || msg.file_url)) {
                     if (currentView === 'chat' && msg.sender_id === currentContactId) {
                         displayMessage(msg, false);
@@ -1212,6 +960,41 @@
                     let lastMsgDisplay = msg.content;
                     if (msg.message_type === 'audio') lastMsgDisplay = '🎤 Áudio';
                     updateConversationLastMessage(msg.sender_id, lastMsgDisplay);
+                }
+
+                if (msg.type === 'followed') {
+                    if (msg.follower_id === currentContactId) {
+                        currentContactFollowStatus.they_follow_me = true;
+                        document.querySelectorAll('.remaining-warning, .follow-prompt').forEach(el => el.remove());
+                        loadMessages(currentContactId);
+                    }
+                    if (currentView === 'profile' && currentProfileUserId === msg.follower_id) {
+                        showProfile(currentProfileUserId);
+                    }
+                    loadConversations();
+                }
+                if (msg.type === 'unfollowed') {
+                    if (msg.follower_id === currentContactId) {
+                        currentContactFollowStatus.they_follow_me = false;
+                        loadMessages(currentContactId);
+                    }
+                    if (currentView === 'profile' && currentProfileUserId === msg.follower_id) {
+                        showProfile(currentProfileUserId);
+                    }
+                    loadConversations();
+                }
+                if (msg.type === 'follow_update') {
+                    if (currentView === 'profile' && currentProfileUserId === msg.target_id) {
+                        showProfile(currentProfileUserId);
+                    }
+                    if (currentView === 'chat' && currentContactId === msg.target_id) {
+                        if (msg.action === 'followed') {
+                            currentContactFollowStatus.i_follow_them = true;
+                        } else {
+                            currentContactFollowStatus.i_follow_them = false;
+                        }
+                    }
+                    loadConversations();
                 }
 
                 // Chamadas
@@ -1224,8 +1007,7 @@
                     callerNameSpan.textContent = msg.fromName || 'Usuário';
                     incomingCallModal.classList.remove('hidden');
                     callState = 'receiving';
-                }
-                else if (msg.type === 'call_answer') {
+                } else if (msg.type === 'call_answer') {
                     if (callState === 'calling') {
                         peerConnection.setRemoteDescription(new RTCSessionDescription(msg.answer))
                             .then(() => {
@@ -1234,43 +1016,33 @@
                             })
                             .catch(err => console.error('Erro ao set remote description:', err));
                     }
-                }
-                else if (msg.type === 'ice_candidate') {
+                } else if (msg.type === 'ice_candidate') {
                     if (peerConnection) {
                         peerConnection.addIceCandidate(new RTCIceCandidate(msg.candidate))
                             .catch(err => console.error('Erro ao adicionar ICE candidate:', err));
                     }
-                }
-                else if (msg.type === 'call_end') {
+                } else if (msg.type === 'call_end') {
                     alert('Chamada encerrada pelo outro participante.');
                     endCall();
-                }
-                else if (msg.type === 'call_reject') {
+                } else if (msg.type === 'call_reject') {
                     alert('Chamada recusada.');
                     endCall();
-                }
-                else if (msg.type === 'call_busy') {
+                } else if (msg.type === 'call_busy') {
                     alert('Usuário ocupado.');
                     endCall();
-                }
-                else if (msg.type === 'call_offline') {
+                } else if (msg.type === 'call_offline') {
                     alert('Usuário offline.');
                     endCall();
-                }
-                else if (msg.type === 'call_accept') {
-                    // Não usado diretamente
                 }
             }
 
             function updateConversationLastMessage(senderId, content) {
-                const items = document.querySelectorAll('.conversation-item');
-                for (let item of items) {
+                document.querySelectorAll('.conversation-item').forEach(item => {
                     if (item.dataset.contactId == senderId) {
                         const lastMsgSpan = item.querySelector('.last-msg');
                         if (lastMsgSpan) lastMsgSpan.textContent = content;
-                        break;
                     }
-                }
+                });
             }
 
             // === Funções de chamada WebRTC ===
@@ -1302,16 +1074,9 @@
             }
 
             async function startCall(withVideo) {
-                if (!currentContactId) return;
-                if (callState !== 'idle') {
-                    alert('Já existe uma chamada em andamento.');
-                    return;
-                }
+                if (!currentContactId || callState !== 'idle') return;
                 try {
-                    localStream = await navigator.mediaDevices.getUserMedia({
-                        video: withVideo,
-                        audio: true
-                    });
+                    localStream = await navigator.mediaDevices.getUserMedia({ video: withVideo, audio: true });
                     localVideo.srcObject = localStream;
                     await setupPeerConnection(true);
                     const offer = await peerConnection.createOffer();
@@ -1334,20 +1099,13 @@
                 if (!incomingCallData) return;
                 const { from, offer } = incomingCallData;
                 try {
-                    localStream = await navigator.mediaDevices.getUserMedia({
-                        video: withVideo,
-                        audio: true
-                    });
+                    localStream = await navigator.mediaDevices.getUserMedia({ video: withVideo, audio: true });
                     localVideo.srcObject = localStream;
                     await setupPeerConnection(false);
                     await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
                     const answer = await peerConnection.createAnswer();
                     await peerConnection.setLocalDescription(answer);
-                    sendWebSocketMessage({
-                        type: 'call_answer',
-                        target: from,
-                        answer: peerConnection.localDescription
-                    });
+                    sendWebSocketMessage({ type: 'call_answer', target: from, answer: peerConnection.localDescription });
                     incomingCallModal.classList.add('hidden');
                     callState = 'in-call';
                     showCallContainer(true);
@@ -1359,10 +1117,7 @@
 
             function rejectCall() {
                 if (incomingCallData) {
-                    sendWebSocketMessage({
-                        type: 'call_reject',
-                        target: incomingCallData.from
-                    });
+                    sendWebSocketMessage({ type: 'call_reject', target: incomingCallData.from });
                     incomingCallModal.classList.add('hidden');
                     incomingCallData = null;
                     callState = 'idle';
@@ -1370,44 +1125,44 @@
             }
 
             function endCall() {
-                if (peerConnection) {
-                    peerConnection.close();
-                    peerConnection = null;
-                }
-                if (localStream) {
-                    localStream.getTracks().forEach(track => track.stop());
-                    localStream = null;
-                }
+                if (peerConnection) peerConnection.close();
+                if (localStream) localStream.getTracks().forEach(track => track.stop());
+                peerConnection = null;
+                localStream = null;
                 remoteStream = null;
                 localVideo.srcObject = null;
                 remoteVideo.srcObject = null;
                 showCallContainer(false);
                 incomingCallModal.classList.add('hidden');
                 if (callState === 'in-call' || callState === 'calling') {
-                    sendWebSocketMessage({
-                        type: 'call_end',
-                        target: currentContactId
-                    });
+                    sendWebSocketMessage({ type: 'call_end', target: currentContactId });
                 }
                 callState = 'idle';
                 incomingCallData = null;
             }
 
             function showCallContainer(show) {
-                if (show) {
-                    activeCallContainer.classList.remove('hidden');
-                } else {
-                    activeCallContainer.classList.add('hidden');
-                }
+                if (show) activeCallContainer.classList.remove('hidden');
+                else activeCallContainer.classList.add('hidden');
             }
 
             // === Funções de gravação de áudio ===
-            async function toggleRecording() {
-                if (isRecording) {
-                    stopRecording();
+            function updateActionButton() {
+                if (!actionBtn) return;
+                if (chatInput.value.trim() === '') {
+                    actionBtn.className = 'action-btn microphone-btn';
+                    actionBtn.innerHTML = isRecording ? '<i class="fas fa-stop"></i>' : '<i class="fas fa-microphone"></i>';
+                    if (isRecording) actionBtn.classList.add('recording');
+                    else actionBtn.classList.remove('recording');
                 } else {
-                    await startRecording();
+                    actionBtn.className = 'action-btn send-btn';
+                    actionBtn.innerHTML = '<i class="fas fa-paper-plane"></i>';
                 }
+            }
+
+            async function toggleRecording() {
+                if (isRecording) stopRecording();
+                else await startRecording();
             }
 
             async function startRecording() {
@@ -1415,29 +1170,24 @@
                     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
                     mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
                     audioChunks = [];
-                    mediaRecorder.ondataavailable = event => {
-                        audioChunks.push(event.data);
-                    };
+                    mediaRecorder.ondataavailable = event => audioChunks.push(event.data);
                     mediaRecorder.onstop = () => {
                         const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
                         uploadAudio(audioBlob);
                         stream.getTracks().forEach(track => track.stop());
                         isRecording = false;
-                        updateActionButton(); // atualiza ícone
+                        updateActionButton();
                     };
                     mediaRecorder.start();
                     isRecording = true;
-                    updateActionButton(); // muda para ícone de stop
+                    updateActionButton();
                 } catch (err) {
                     alert('Não foi possível acessar o microfone: ' + err.message);
                 }
             }
 
             function stopRecording() {
-                if (mediaRecorder && isRecording) {
-                    mediaRecorder.stop();
-                    // isRecording será alterado no onstop
-                }
+                if (mediaRecorder && isRecording) mediaRecorder.stop();
             }
 
             async function uploadAudio(blob) {
@@ -1476,8 +1226,17 @@
                 }
             }
 
+            // === Função de envio de mensagem modificada ===
             async function sendMessage(content) {
                 if (!currentContactId || !content.trim()) return;
+
+                if (!currentContactFollowStatus.i_follow_them) {
+                    const seguir = await ensureFollowingBeforeMessage(currentContactId, currentContactName);
+                    if (!seguir) return;
+                    currentContactFollowStatus.i_follow_them = true;
+                    document.querySelectorAll('.follow-prompt').forEach(el => el.remove());
+                }
+
                 try {
                     const newMsg = await apiRequest('/messages/', {
                         method: 'POST',
@@ -1486,23 +1245,31 @@
                     displayMessage(newMsg, true);
                     updateConversationLastMessage(currentContactId, newMsg.content);
                     chatInput.value = '';
-                    updateActionButton(); // volta para microfone
+                    updateActionButton();
+
+                    if (!currentContactFollowStatus.they_follow_me && currentContactFollowStatus.remaining !== null) {
+                        currentContactFollowStatus.remaining -= 1;
+                        const warning = document.querySelector('.remaining-warning');
+                        if (warning) {
+                            warning.textContent = `Você só pode enviar mais ${currentContactFollowStatus.remaining} mensagens para ${currentContactName} até ele(a) te seguir.`;
+                        }
+                        if (currentContactFollowStatus.remaining <= 0) {
+                            chatInput.disabled = true;
+                        }
+                    }
                 } catch (e) {
-                    console.error('Erro ao enviar mensagem', e);
+                    if (e.message.includes('403') || e.message.includes('só pode enviar 3 mensagens')) {
+                        alert('Você atingiu o limite de 3 mensagens. Aguarde o usuário te seguir para continuar.');
+                    } else {
+                        alert('Erro ao enviar mensagem: ' + e.message);
+                    }
                 }
             }
 
-            // === Carregar dados ===
+            // === Carregar dados iniciais ===
             async function loadCurrentUser() {
                 try {
                     currentUser = await apiRequest('/users/me');
-                    profileName.value = currentUser.name;
-                    profileBio.value = currentUser.bio || '';
-                    if (currentUser.avatar_url) {
-                        avatarImg.src = API_BASE + currentUser.avatar_url;
-                    } else {
-                        avatarImg.src = 'https://via.placeholder.com/100/2a2a2a/8A2BE2?text=AV';
-                    }
                 } catch (e) {
                     console.error('Erro ao carregar usuário', e);
                     throw e;
@@ -1513,15 +1280,20 @@
                 try {
                     const conversations = await apiRequest('/conversations/');
                     conversationList.innerHTML = '';
-                    if (conversations.length === 0) {
-                        conversationList.innerHTML = '<div style="text-align:center; padding:20px; color:var(--text-secondary);">Nenhuma conversa ainda</div>';
+                    // Filtrar apenas quem current_user segue OU quem segue current_user
+                    const filtered = conversations.filter(c => c.i_follow_them || c.they_follow_me);
+                    if (filtered.length === 0) {
+                        conversationList.innerHTML = '<div style="text-align:center; padding:20px; color:var(--text-secondary);">Nenhuma conversa disponível. Siga alguém ou aguarde ser seguido.</div>';
                         return;
                     }
-                    conversations.forEach(conv => {
+                    filtered.forEach(conv => {
                         const item = document.createElement('div');
                         item.className = 'conversation-item';
                         item.dataset.contactId = conv.user_id;
                         item.dataset.name = conv.name;
+                        item.dataset.iFollow = conv.i_follow_them;
+                        item.dataset.theyFollow = conv.they_follow_me;
+                        item.dataset.remaining = conv.remaining_messages;
 
                         const avatarDiv = document.createElement('div');
                         avatarDiv.className = 'avatar';
@@ -1533,14 +1305,26 @@
 
                         const infoDiv = document.createElement('div');
                         infoDiv.className = 'info';
+                        let lastMsgHtml = conv.last_message || 'Nenhuma mensagem';
+                        if (!conv.they_follow_me && conv.remaining_messages !== null) {
+                            lastMsgHtml += ` (${conv.remaining_messages}/3 restantes)`;
+                        }
                         infoDiv.innerHTML = `
-                            <span class="name">${conv.name}</span>
-                            <span class="last-msg">${conv.last_message || 'Nenhuma mensagem'}</span>
+                            <span class="name">${conv.name} ${!conv.they_follow_me ? '🔒' : ''}</span>
+                            <span class="last-msg">${lastMsgHtml}</span>
                         `;
 
                         item.appendChild(avatarDiv);
                         item.appendChild(infoDiv);
-                        item.addEventListener('click', () => showView('chat', { id: conv.user_id, name: conv.name }));
+                        item.addEventListener('click', () => {
+                            showView('chat', {
+                                id: conv.user_id,
+                                name: conv.name,
+                                i_follow_them: conv.i_follow_them,
+                                they_follow_me: conv.they_follow_me,
+                                remaining: conv.remaining_messages
+                            });
+                        });
                         conversationList.appendChild(item);
                     });
                 } catch (e) {
@@ -1553,6 +1337,33 @@
                 try {
                     const messages = await apiRequest(`/messages/${contactId}`);
                     chatMessages.innerHTML = '';
+
+                    if (!currentContactFollowStatus.they_follow_me && currentContactFollowStatus.remaining !== null) {
+                        const warning = document.createElement('div');
+                        warning.className = 'remaining-warning';
+                        warning.textContent = `Você só pode enviar mais ${currentContactFollowStatus.remaining} mensagens para ${currentContactName} até ele(a) te seguir.`;
+                        chatMessages.appendChild(warning);
+                    }
+
+                    if (!currentContactFollowStatus.i_follow_them && currentContactFollowStatus.they_follow_me) {
+                        const prompt = document.createElement('div');
+                        prompt.className = 'follow-prompt';
+                        prompt.innerHTML = `
+                            <span>${currentContactName} quer conversar com você. Siga de volta para liberar a conversa.</span>
+                            <button id="follow-back-btn">Seguir</button>
+                        `;
+                        prompt.querySelector('#follow-back-btn').addEventListener('click', async () => {
+                            try {
+                                await apiRequest(`/follow/${currentContactId}`, { method: 'POST' });
+                                currentContactFollowStatus.i_follow_them = true;
+                                prompt.remove();
+                            } catch (e) {
+                                alert('Erro ao seguir: ' + e.message);
+                            }
+                        });
+                        chatMessages.appendChild(prompt);
+                    }
+
                     messages.forEach(msg => {
                         const isMe = msg.sender_id === currentUser.id;
                         displayMessage(msg, isMe);
@@ -1563,21 +1374,9 @@
                 }
             }
 
-            function loadProfile() {
-                if (!currentUser) {
-                    loadCurrentUser().catch(() => {});
-                } else {
-                    profileName.value = currentUser.name;
-                    profileBio.value = currentUser.bio || '';
-                    if (currentUser.avatar_url) {
-                        avatarImg.src = API_BASE + currentUser.avatar_url;
-                    }
-                }
-            }
-
             async function saveProfile() {
-                const name = profileName.value;
-                const bio = profileBio.value;
+                const name = profileNameInput.value;
+                const bio = profileBioInput.value;
                 try {
                     const updated = await apiRequest('/users/me', {
                         method: 'PUT',
@@ -1585,7 +1384,7 @@
                     });
                     currentUser = updated;
                     alert('Perfil atualizado');
-                    showView('conversations');
+                    showView('profile', { userId: currentUser.id });
                 } catch (e) {
                     alert('Erro ao salvar: ' + e.message);
                 }
@@ -1604,7 +1403,6 @@
                     const updated = await response.json();
                     currentUser = updated;
                     avatarImg.src = API_BASE + updated.avatar_url;
-                    if (currentView === 'conversations') loadConversations();
                 } catch (e) {
                     alert('Erro ao fazer upload: ' + e.message);
                 }
@@ -1644,7 +1442,7 @@
                     localStorage.setItem('token', token);
                     await loadCurrentUser();
                     showScreen('app');
-                    showView('conversations');
+                    showView('direct');
                     connectWebSocket();
                 } catch (e) {
                     alert('Falha no login: ' + e.message);
@@ -1652,13 +1450,18 @@
             });
 
             document.getElementById('signup-btn').addEventListener('click', async () => {
+                const username = document.getElementById('signup-username').value;
                 const name = document.getElementById('signup-name').value;
                 const email = document.getElementById('signup-email').value;
                 const password = document.getElementById('signup-password').value;
+                if (username.includes(' ')) {
+                    alert('Username não pode conter espaços');
+                    return;
+                }
                 try {
                     await apiRequest('/users/register', {
                         method: 'POST',
-                        body: JSON.stringify({ name, email, password })
+                        body: JSON.stringify({ username, name, email, password })
                     });
                     alert('Conta criada! Faça login.');
                     showScreen('login');
@@ -1668,65 +1471,42 @@
             });
 
             document.getElementById('recovery-btn').addEventListener('click', () => {
-                alert('Funcionalidade de recuperação não implementada no backend.');
+                alert('Funcionalidade de recuperação não implementada.');
                 showScreen('login');
             });
 
-            document.getElementById('forgot-link').addEventListener('click', (e) => {
-                e.preventDefault();
-                showScreen('recovery');
-            });
-            document.getElementById('signup-link').addEventListener('click', (e) => {
-                e.preventDefault();
-                showScreen('signup');
-            });
-            document.getElementById('login-link').addEventListener('click', (e) => {
-                e.preventDefault();
-                showScreen('login');
-            });
-            document.getElementById('back-to-login').addEventListener('click', (e) => {
-                e.preventDefault();
-                showScreen('login');
-            });
+            document.getElementById('forgot-link').addEventListener('click', (e) => { e.preventDefault(); showScreen('recovery'); });
+            document.getElementById('signup-link').addEventListener('click', (e) => { e.preventDefault(); showScreen('signup'); });
+            document.getElementById('login-link').addEventListener('click', (e) => { e.preventDefault(); showScreen('login'); });
+            document.getElementById('back-to-login').addEventListener('click', (e) => { e.preventDefault(); showScreen('login'); });
 
             backBtn.addEventListener('click', () => {
-                if (currentView === 'chat' || currentView === 'profile') {
-                    if (callState !== 'idle') endCall();
-                    showView('conversations');
-                }
+                if (currentView === 'chat') showView('direct');
+                else if (currentView === 'profile') {
+                    if (isOwnProfile) showView('direct');
+                    else showView('search');
+                } else if (currentView === 'profile-edit') showView('profile', { userId: currentUser.id });
+                else showView('direct');
             });
 
             profileIcon.addEventListener('click', () => {
-                if (currentView !== 'profile') {
-                    if (callState !== 'idle') endCall();
-                    showView('profile');
-                }
+                if (callState !== 'idle') endCall();
+                showView('profile', { userId: currentUser?.id });
             });
 
-            document.getElementById('save-profile').addEventListener('click', saveProfile);
-            document.getElementById('cancel-profile').addEventListener('click', () => {
-                if (callState !== 'idle') endCall();
-                showView('conversations');
-            });
+            saveProfileBtn.addEventListener('click', saveProfile);
+            cancelProfileBtn.addEventListener('click', () => showView('profile', { userId: currentUser.id }));
             logoutBtn.addEventListener('click', logout);
 
-            // Eventos de digitação e ação
             chatInput.addEventListener('input', updateActionButton);
-
             actionBtn.addEventListener('click', () => {
-                if (actionBtn.classList.contains('send-btn')) {
-                    sendMessage(chatInput.value);
-                } else {
-                    toggleRecording();
-                }
+                if (actionBtn.classList.contains('send-btn')) sendMessage(chatInput.value);
+                else toggleRecording();
             });
-
             chatInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
+                if (e.key === 'Enter' && chatInput.value.trim() !== '') {
                     e.preventDefault();
-                    if (chatInput.value.trim() !== '') {
-                        sendMessage(chatInput.value);
-                    }
+                    sendMessage(chatInput.value);
                 }
             });
 
@@ -1736,14 +1516,12 @@
                 if (file) uploadAvatar(file);
             });
 
-            closeBioModal.addEventListener('click', () => {
-                bioModal.classList.add('hidden');
-            });
-            bioModal.addEventListener('click', (e) => {
-                if (e.target === bioModal) bioModal.classList.add('hidden');
-            });
+            closeBioModal.addEventListener('click', () => bioModal.classList.add('hidden'));
+            bioModal.addEventListener('click', (e) => { if (e.target === bioModal) bioModal.classList.add('hidden'); });
 
-            // Eventos de chamada
+            closeFollowersModal.addEventListener('click', () => followersModal.classList.add('hidden'));
+            followersModal.addEventListener('click', (e) => { if (e.target === followersModal) followersModal.classList.add('hidden'); });
+
             headerAudioBtn.addEventListener('click', () => startCall(false));
             headerVideoBtn.addEventListener('click', () => startCall(true));
             acceptVideoBtn.addEventListener('click', () => acceptCall(true));
@@ -1751,11 +1529,22 @@
             rejectCallBtn.addEventListener('click', rejectCall);
             endCallBtn.addEventListener('click', endCall);
 
-            // Inicialização
+            document.querySelectorAll('.bottom-nav .nav-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const tab = item.dataset.tab;
+                    if (callState !== 'idle') endCall();
+                    if (tab === 'home') showView('home');
+                    else if (tab === 'videos') showView('videos');
+                    else if (tab === 'direct') showView('direct');
+                    else if (tab === 'search') showView('search');
+                    else if (tab === 'profile') showView('profile', { userId: currentUser?.id });
+                });
+            });
+
             if (token) {
                 loadCurrentUser().then(() => {
                     showScreen('app');
-                    showView('conversations');
+                    showView('direct');
                     connectWebSocket();
                 }).catch(() => {
                     token = null;
@@ -1765,125 +1554,14 @@
             } else {
                 showScreen('login');
             }
-
-            // ========== NAVEGAÇÃO POR ABAS (wrapper) ==========
-            const homeView = document.getElementById('home-view');
-            const videosView = document.getElementById('videos-view');
-            const searchView = document.getElementById('search-view');
-            const navItems = document.querySelectorAll('.bottom-nav .nav-item');
-
-            function setActiveNav(tab) {
-                navItems.forEach(item => {
-                    item.classList.remove('active');
-                    if (item.dataset.tab === tab) {
-                        item.classList.add('active');
-                    }
-                });
-            }
-
-            function showTab(tab) {
-                conversationsView.classList.add('hidden');
-                chatView.classList.add('hidden');
-                profileView.classList.add('hidden');
-                homeView.classList.add('hidden');
-                videosView.classList.add('hidden');
-                searchView.classList.add('hidden');
-
-                setActiveNav(tab);
-
-                if (tab === 'home') {
-                    homeView.classList.remove('hidden');
-                    appTitle.innerHTML = 'Home';
-                    backBtn.classList.add('hidden');
-                    chatCallButtons.classList.add('hidden');
-                    currentView = 'home';
-                } else if (tab === 'videos') {
-                    videosView.classList.remove('hidden');
-                    appTitle.innerHTML = 'Vídeos';
-                    backBtn.classList.add('hidden');
-                    chatCallButtons.classList.add('hidden');
-                    currentView = 'videos';
-                } else if (tab === 'direct') {
-                    conversationsView.classList.remove('hidden');
-                    appTitle.innerHTML = 'Direct';
-                    backBtn.classList.add('hidden');
-                    chatCallButtons.classList.add('hidden');
-                    currentView = 'conversations';
-                    loadConversations();
-                } else if (tab === 'search') {
-                    searchView.classList.remove('hidden');
-                    appTitle.innerHTML = 'Pesquisar';
-                    backBtn.classList.add('hidden');
-                    chatCallButtons.classList.add('hidden');
-                    currentView = 'search';
-                } else if (tab === 'profile') {
-                    profileView.classList.remove('hidden');
-                    appTitle.innerHTML = 'Editar Perfil';
-                    backBtn.classList.remove('hidden');
-                    chatCallButtons.classList.add('hidden');
-                    currentView = 'profile';
-                    loadProfile();
-                }
-            }
-
-            const originalShowView = showView;
-            showView = function(viewName, param) {
-                homeView.classList.add('hidden');
-                videosView.classList.add('hidden');
-                searchView.classList.add('hidden');
-
-                originalShowView(viewName, param);
-
-                if (viewName === 'conversations') {
-                    setActiveNav('direct');
-                    appTitle.innerHTML = 'Direct';
-                    backBtn.classList.add('hidden');
-                    chatCallButtons.classList.add('hidden');
-                    currentView = 'conversations';
-                } else if (viewName === 'chat') {
-                    setActiveNav('direct');
-                    chatCallButtons.classList.remove('hidden');
-                    currentView = 'chat';
-                } else if (viewName === 'profile') {
-                    setActiveNav('profile');
-                    appTitle.innerHTML = 'Editar Perfil';
-                    backBtn.classList.remove('hidden');
-                    chatCallButtons.classList.add('hidden');
-                    currentView = 'profile';
-                }
-            };
-
-            profileIcon.removeEventListener('click', profileIcon._listener);
-            profileIcon.addEventListener('click', () => {
-                if (callState !== 'idle') endCall();
-                showTab('profile');
-            });
-
-            backBtn.removeEventListener('click', backBtn._listener);
-            backBtn.addEventListener('click', () => {
-                if (currentView === 'chat' || currentView === 'profile') {
-                    if (callState !== 'idle') endCall();
-                    showTab('direct');
-                }
-            });
-
-            navItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    const tab = item.dataset.tab;
-                    if (callState !== 'idle') endCall();
-                    showTab(tab);
-                });
-            });
         })();
     </script>
 
-    <!-- Script para alternância de tema (independente do código original) -->
+    <!-- Script de alternância de tema -->
     <script>
         (function() {
             const themeToggle = document.getElementById('theme-toggle');
             const body = document.body;
-
-            // Verifica se há preferência salva
             const savedTheme = localStorage.getItem('theme') || 'dark';
             body.classList.remove('theme-dark', 'theme-light');
             body.classList.add(`theme-${savedTheme}`);
@@ -1891,13 +1569,11 @@
 
             themeToggle.addEventListener('click', () => {
                 if (body.classList.contains('theme-dark')) {
-                    body.classList.remove('theme-dark');
-                    body.classList.add('theme-light');
+                    body.classList.replace('theme-dark', 'theme-light');
                     themeToggle.className = 'fas fa-sun theme-toggle';
                     localStorage.setItem('theme', 'light');
                 } else {
-                    body.classList.remove('theme-light');
-                    body.classList.add('theme-dark');
+                    body.classList.replace('theme-light', 'theme-dark');
                     themeToggle.className = 'fas fa-moon theme-toggle';
                     localStorage.setItem('theme', 'dark');
                 }
