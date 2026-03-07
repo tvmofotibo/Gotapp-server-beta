@@ -1,0 +1,20 @@
+# cache python
+__pycache__/
+*.pyc
+
+# banco local
+*.db
+
+# logs
+*.log
+
+# uploads de usuários
+uploads/
+
+# ambiente
+.env
+venv/
+.venv/
+
+# sistema
+.DS_Store
