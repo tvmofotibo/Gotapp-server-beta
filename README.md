@@ -25,7 +25,8 @@ O projeto utiliza o que há de mais eficiente no ecossistema Python atual:
 * ✅ **Autenticação:** Sistema de Login/Registro com criptografia de senhas.
 * ✅ **Gestão de Usuários:** CRUD completo de perfis.
 * ✅ **Comunicação:** Endpoints otimizados para troca de mensagens rápidas.
-* 🚧 **Em breve:** Suporte a notificações e integração com WebSockets.
+* ✅ Suporte a notificações e integração com WebSockets.
+* 🚧 **Em breve:** 
 
 ---
 
